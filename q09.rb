@@ -3,23 +3,26 @@
 #O nome do candidato vencedor.  Pode acontecer empate.
 
 candidatos = {}
-votos = {}
 total_votos = 0
 
-3.times {|i| print "Entre com o nome do candidato: " or candidatos[i] = gets.chomp.capitalize}
-
-candidatos.each_key {|i| votos[i] = 0}
+3.times {|i| print "Entre com o nome do candidato: " or candidatos[i] = [gets.chomp.capitalize, 0]}
 
 puts " "
 
-4.times {|i| print "Seu Voto: " or votos[gets.chomp.to_i] += 1}
+4.times {|i| print "Seu Voto: " or candidatos[gets.chomp.to_i][1] += 1}
 
-candidatos.each_key {|i| total_votos += votos[i]}
-
-puts " "
-
-candidatos.each_key {|i| puts "Candidato #{candidatos[i]}: #{(votos[i]*100) / total_votos}%"}
+candidatos.each_key {|i| total_votos += candidatos[i][1]}
 
 puts " "
 
-#Inconpleta
+candidatos.each_key {|i| puts "Candidato #{candidatos[i][0]}: #{(candidatos[i][1]*100) / total_votos}%"}
+
+puts " "
+
+vencedor = candidatos[0]
+
+candidatos.each_key{|i| vencedor = candidatos[i] if candidatos[i][1] >= vencedor[1] }
+
+puts "Vencedor: #{vencedor[0]} com #{vencedor[1]} votos"
+
+#NOTA: IMPLEMENTAR PARA CASOS DE EMPATE
